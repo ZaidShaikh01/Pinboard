@@ -1,25 +1,21 @@
 import { FaPlus } from 'react-icons/fa';
-import { initialCards } from '~/data/initialBoard';
 import type { Card } from '~/types';
 
-type CardProps = {
+type BoardColumnProps = {
   title: string;
   columnId: string;
   cards: Card[];
-  setOpenDialouge: React.Dispatch<React.SetStateAction<boolean>>;
+  handleAddClick: (columnId: string) => void;
 };
 
-const CardComponent = ({
+const BoardColumn = ({
   title,
   columnId,
   cards,
-  setOpenDialouge,
-}: CardProps) => {
-  const onAdd = () => {
-    setOpenDialouge(true);
-  };
+  handleAddClick,
+}: BoardColumnProps) => {
   return (
-    <div className='w-sm shrink-0 h-2/3 bg-black rounded-2xl 0 flex flex-col overflow-hidden '>
+    <div className='w-sm shrink-0 h-2/3 bg-black rounded-2xl flex flex-col overflow-hidden '>
       {/* Card Title */}
       <div className='m-3 text-gray-200 shrink-0  px-3'>{title}</div>
       {/* Card details */}
@@ -30,20 +26,20 @@ const CardComponent = ({
           .map((card) => (
             <div
               key={card.id}
-              className='p-3 mt-2  border border-transparent cursor-pointer hover:border-blue-300 bg-gray-800 rounded-xl text-base '
+              className='p-3   border border-transparent cursor-pointer hover:border-blue-300 bg-gray-800 rounded-xl text-base '
             >
               {card.title}
             </div>
           ))}
         <button
-          onClick={onAdd}
-          className='p-3 mt-2  w-full border border-transparent cursor-pointer transition-border  hover:border-blue-300 bg-gray-800 rounded-xl text-base '
+          onClick={() => handleAddClick(columnId)}
+          className='p-3 w-full border border-transparent cursor-pointer  hover:border-blue-300 bg-gray-800 rounded-xl text-base '
         >
-          <div className='flex justify-center text-center items-center'>
+          <div className='flex gap-3 justify-center text-center items-center'>
             <span>
               <FaPlus />
-            </span>{' '}
-            <span className='ml-3'>Add</span>
+            </span>
+            <span >Add</span>
           </div>
         </button>
       </div>
@@ -51,4 +47,4 @@ const CardComponent = ({
   );
 };
 
-export default CardComponent;
+export default BoardColumn;

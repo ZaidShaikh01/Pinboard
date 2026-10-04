@@ -1,8 +1,18 @@
+import { useState } from 'react';
 type DialogueBoxAddProps = {
+  activeColumnId: string | null;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  handleSubmit: (title: string, description: string) => void;
 };
 
-const DialogueBoxAdd = ({ setOpen }: DialogueBoxAddProps) => {
+const DialogueBoxAdd = ({
+  setOpen,
+  handleSubmit,
+  activeColumnId,
+}: DialogueBoxAddProps) => {
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+
   const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       setOpen(false);
@@ -17,30 +27,44 @@ const DialogueBoxAdd = ({ setOpen }: DialogueBoxAddProps) => {
         <div className='flex h-full flex-col justify-around p-5'>
           {/* Title */}
           <span className='text-2xl'>Add a card</span>
-          <form className='flex flex-col justify-around h-full'>
+          <form
+            onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+              e.preventDefault();
+              handleSubmit(title, description);
+              setOpen(false);
+            }}
+            className='flex flex-col justify-around h-full'
+          >
             <div>
-              <label htmlFor='text'>Title: </label>
+              <label htmlFor='title'>Title: </label>
               <input
                 className='w-full h-10'
                 type='text'
-                name='text'
-                id='text'
+                name='title'
+                id='title'
+                value={title}
+                onChange={(e) => {
+                  setTitle(e.target.value);
+                }}
                 placeholder='Enter something'
               />
             </div>
             <div>
-              <label htmlFor='description'>description: </label>
+              <label htmlFor='description'>Description: </label>
               <input
                 className='w-full h-10'
                 type='text'
                 name='description'
                 id='description'
+                value={description}
+                onChange={(e) => {
+                  setDescription(e.target.value);
+                }}
                 placeholder='Enter something'
               />
             </div>
             <button
-              onSubmit={(e) => e.stopPropagation()}
-              className='p-5 bg-amber-700 rounded-3xl'
+              className='p-5 cursor-pointer bg-amber-700 rounded-3xl'
               type='submit'
             >
               Submit
