@@ -1,11 +1,13 @@
 // It will take list of items as details
 
+import type { Card } from '~/types';
+
 type CardProps = {
   title: string;
-  description: string[];
+  description: Card[];
 };
 
-const Card = ({ title, description }: CardProps) => {
+const CardComponent = ({ title, description }: CardProps) => {
   return (
     <div className='w-sm shrink-0 h-2/3 bg-black rounded-2xl 0 flex flex-col overflow-hidden '>
       {/* Card Title */}
@@ -15,7 +17,7 @@ const Card = ({ title, description }: CardProps) => {
         {/* Inner details */}
         {description.map((el) => (
           <div className='p-3 mt-2  border border-transparent cursor-pointer transition-border  hover:border-blue-300 bg-gray-800 rounded-xl text-base '>
-            {el}
+            {el.description}
           </div>
         ))}
       </div>
@@ -23,4 +25,4 @@ const Card = ({ title, description }: CardProps) => {
   );
 };
 
-export default Card;
+export default CardComponent;
