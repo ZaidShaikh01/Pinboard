@@ -23,7 +23,7 @@ export default function Home() {
       {initialColumns.map((el) => (
         <Card
           title={el.title}
-          description={el.cards}
+          columnId={el.id}
           setOpenDialouge={setOpenDialouge}
         />
       ))}
