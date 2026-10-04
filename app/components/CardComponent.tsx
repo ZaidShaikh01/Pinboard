@@ -5,12 +5,17 @@ import type { Card } from '~/types';
 type CardProps = {
   title: string;
   columnId: string;
+  cards: Card[];
   setOpenDialouge: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const CardComponent = ({ title, columnId, setOpenDialouge }: CardProps) => {
+const CardComponent = ({
+  title,
+  columnId,
+  cards,
+  setOpenDialouge,
+}: CardProps) => {
   const onAdd = () => {
-    console.log();
     setOpenDialouge(true);
   };
   return (
@@ -20,10 +25,13 @@ const CardComponent = ({ title, columnId, setOpenDialouge }: CardProps) => {
       {/* Card details */}
       <div className='flex-1 flex flex-col gap-2 min-h-0 m-3 overflow-y-auto scrollbar-gutter-stable scrollbar-thin scrollbar-w-1.5 scrollbar-thumb-gray-800 scrollbar-track-transparent scrollbar-hover:bg-gray-500 '>
         {/* Inner details */}
-        {initialCards
+        {cards
           .filter((card) => card.columnId === columnId)
           .map((card) => (
-            <div key={card.id} className='p-3 mt-2  border border-transparent cursor-pointer hover:border-blue-300 bg-gray-800 rounded-xl text-base '>
+            <div
+              key={card.id}
+              className='p-3 mt-2  border border-transparent cursor-pointer hover:border-blue-300 bg-gray-800 rounded-xl text-base '
+            >
               {card.title}
             </div>
           ))}

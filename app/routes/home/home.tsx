@@ -2,7 +2,7 @@ import Card from '~/components/CardComponent';
 import type { Route } from './+types/home';
 import { useState } from 'react';
 
-import { initialColumns } from '~/data/initialBoard';
+import { initialCards, initialColumns } from '~/data/initialBoard';
 import DialogueBoxAdd from '~/components/AddCardDialogueBox';
 
 export function meta({}: Route.MetaArgs) {
@@ -14,6 +14,7 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Home() {
   let [openDialogue, setOpenDialouge] = useState(false);
+  let [cards,setCards] = useState(initialCards);
 
   return (
     <div className='h-screen flex relative justify-around items-center gap-10 w-full bg-white overflow-x-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent hover:scrollbar-thumb-gray-500 px-6'>
@@ -24,6 +25,7 @@ export default function Home() {
         <Card
           title={el.title}
           columnId={el.id}
+          cards={cards}
           setOpenDialouge={setOpenDialouge}
         />
       ))}
