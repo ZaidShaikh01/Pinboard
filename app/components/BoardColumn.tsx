@@ -18,14 +18,18 @@ const BoardColumn = ({
   handleAddClick,
   handleDeleteClick,
 }: BoardColumnProps) => {
-
   // Using droppable here
-  const {ref} = useDroppable({
-    id:columnId,
+  const { ref, isDropTarget } = useDroppable({
+    id: columnId,
   });
 
   return (
-    <div ref={ref} className='w-sm shrink-0 h-2/3 bg-black rounded-2xl flex flex-col overflow-hidden '>
+    <div
+      ref={ref}
+      className={`${
+        isDropTarget ? ' border-3 border-blue-400  ' : 'border-3 border-transparent'
+      } w-sm shrink-0 h-2/3 bg-black rounded-2xl flex flex-col overflow-hidden transition`}
+    >
       {/* Column Title */}
       <div className='m-3 text-gray-200 shrink-0  px-3'>{title}</div>
       {/* Card Space  */}
