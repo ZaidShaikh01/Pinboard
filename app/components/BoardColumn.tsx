@@ -1,5 +1,7 @@
+import { useDraggable } from '@dnd-kit/react';
 import { FaPlus, FaTrash } from 'react-icons/fa';
 import type { Card, Column } from '~/types';
+import DraggableCardComponent from './DraggableCardComponent';
 
 type BoardColumnProps = {
   title: string;
@@ -26,24 +28,11 @@ const BoardColumn = ({
         {cards
           .filter((card) => card.columnId === columnId)
           .map((card) => (
-            <div
+            <DraggableCardComponent
+              card={card}
+              handleDeleteClick={handleDeleteClick}
               key={card.id}
-              className='p-3 border border-transparent cursor-pointer hover:border-blue-300 bg-gray-800 rounded-xl text-base '
-            >
-              <div className='flex w-full justify-between items-center'>
-                <span className='truncate' >{card.title}</span>
-                <button
-                  className=' min-w-2 cursor-pointer shrink-0'
-                  type='button'
-                  onClick={() => {
-                    // I will also need the card Id to delete it, so we will pass that too
-                    handleDeleteClick(card.id);
-                  }}
-                >
-                  <FaTrash />
-                </button>
-              </div>
-            </div>
+            />
           ))}
         <button
           onClick={() => handleAddClick(columnId)}
