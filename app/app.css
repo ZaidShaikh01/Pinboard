@@ -8,9 +8,10 @@
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
+/* Background mismatch can cause an error when ssr is false, then it may flash weird colors */
 html,
 body {
-  @apply bg-white dark:bg-gray-950;
+  @apply bg-white dark:bg-white;
 
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;

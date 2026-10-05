@@ -1,6 +1,5 @@
 import { useState } from 'react';
 type DialogueBoxAddProps = {
-  activeColumnId: string | null;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   handleSubmit: (title: string, description: string) => void;
 };
@@ -8,7 +7,6 @@ type DialogueBoxAddProps = {
 const DialogueBoxAdd = ({
   setOpen,
   handleSubmit,
-  activeColumnId,
 }: DialogueBoxAddProps) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -42,6 +40,7 @@ const DialogueBoxAdd = ({
                 type='text'
                 name='title'
                 id='title'
+                required
                 value={title}
                 onChange={(e) => {
                   setTitle(e.target.value);
@@ -55,6 +54,7 @@ const DialogueBoxAdd = ({
                 className='w-full h-10'
                 type='text'
                 name='description'
+                
                 id='description'
                 value={description}
                 onChange={(e) => {
