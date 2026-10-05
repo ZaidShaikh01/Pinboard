@@ -4,6 +4,7 @@ import { initialCards, initialColumns } from '~/data/initialBoard';
 import DialogueBoxAdd from '~/components/AddCardDialogueBox';
 import BoardColumn from '~/components/BoardColumn';
 import type { Card } from '~/types';
+import { DragDropProvider } from '@dnd-kit/react';
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -67,23 +68,56 @@ export default function Home() {
     }
   };
 
+  
+
+
   return (
-    <div className='h-screen flex relative justify-around items-center gap-10 w-full bg-white overflow-x-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent hover:scrollbar-thumb-gray-500 px-6'>
-      {/* List of cards, For now lets make three cards only */}
-      {/* Outer cards */}
-      {openDialogue && (
-        <DialogueBoxAdd handleSubmit={addCard} setOpen={setOpenDialouge} />
-      )}
-      {initialColumns.map((el) => (
-        <BoardColumn
-          key={el.id}
-          title={el.title}
-          columnId={el.id}
-          cards={cards}
-          handleAddClick={handleAddClick}
-          handleDeleteClick={handleDeleteClick}
-        />
-      ))}
-    </div>
+    // Drag Drop provider gives common space to draggable and droppables
+    <DragDropProvider
+      onDragEnd={(event) => {
+        if (event.canceled) return;
+        if (
+          event.operation.target === null ||
+          event.operation.target === undefined
+        )
+          return;
+        if (
+          event.operation.source === null ||
+          event.operation.source === undefined
+        )
+          return;
+        // Target Id gives column ID
+        const { target } = event.operation;
+
+        // Source Id gives Card ID
+        const { source } = event.operation;
+
+        setCards((prev) =>
+          prev.map((card) =>
+            card.id !== String(source.id)
+              ? card
+              : { ...card, columnId: String(target.id) },
+          ),
+        );
+      }}
+    >
+      <div className='h-screen flex relative justify-around items-center gap-10 w-full bg-white overflow-x-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent hover:scrollbar-thumb-gray-500 px-6'>
+        {/* List of cards, For now lets make three cards only */}
+        {/* Outer cards */}
+        {openDialogue && (
+          <DialogueBoxAdd handleSubmit={addCard} setOpen={setOpenDialouge} />
+        )}
+        {initialColumns.map((el) => (
+          <BoardColumn
+            key={el.id}
+            title={el.title}
+            columnId={el.id}
+            cards={cards}
+            handleAddClick={handleAddClick}
+            handleDeleteClick={handleDeleteClick}
+          />
+        ))}
+      </div>
+    </DragDropProvider>
   );
 }

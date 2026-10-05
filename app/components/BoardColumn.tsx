@@ -1,7 +1,7 @@
-import { useDraggable } from '@dnd-kit/react';
 import { FaPlus, FaTrash } from 'react-icons/fa';
 import type { Card, Column } from '~/types';
 import DraggableCardComponent from './DraggableCardComponent';
+import { useDroppable } from '@dnd-kit/react';
 
 type BoardColumnProps = {
   title: string;
@@ -18,8 +18,14 @@ const BoardColumn = ({
   handleAddClick,
   handleDeleteClick,
 }: BoardColumnProps) => {
+
+  // Using droppable here
+  const {ref} = useDroppable({
+    id:columnId,
+  });
+
   return (
-    <div className='w-sm shrink-0 h-2/3 bg-black rounded-2xl flex flex-col overflow-hidden '>
+    <div ref={ref} className='w-sm shrink-0 h-2/3 bg-black rounded-2xl flex flex-col overflow-hidden '>
       {/* Column Title */}
       <div className='m-3 text-gray-200 shrink-0  px-3'>{title}</div>
       {/* Card Space  */}

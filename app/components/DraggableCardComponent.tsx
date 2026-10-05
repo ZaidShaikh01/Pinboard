@@ -14,6 +14,7 @@ const DraggableCardComponent = ({ card,handleDeleteClick }: DraggableCardCompone
 
   return (
     <div
+     
       ref={ref}
       className='p-3 border border-transparent cursor-pointer hover:border-blue-300 bg-gray-800 rounded-xl text-base '
     >
