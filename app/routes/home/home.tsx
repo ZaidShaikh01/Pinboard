@@ -5,6 +5,7 @@ import DialogueBoxAdd from '~/components/AddCardDialogueBox';
 import BoardColumn from '~/components/BoardColumn';
 import type { Card } from '~/types';
 import { DragDropProvider } from '@dnd-kit/react';
+import Grainient from '~/components/BackgroundGradient';
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -68,9 +69,6 @@ export default function Home() {
     }
   };
 
-  
-
-
   return (
     // Drag Drop provider gives common space to draggable and droppables
     <DragDropProvider
@@ -101,22 +99,51 @@ export default function Home() {
         );
       }}
     >
-      <div className='h-screen flex relative justify-around items-center gap-10 w-full bg-white overflow-x-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent hover:scrollbar-thumb-gray-500 px-6'>
+      <div className='h-screen  flex relative  w-full overflow-x-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent hover:scrollbar-thumb-gray-500 px-6'>
         {/* List of cards, For now lets make three cards only */}
         {/* Outer cards */}
+        <div className='z-0 absolute inset-0'>
+          <Grainient
+            className='z-0 absolute inset-0'
+            color1='#99BDFF'
+            color2='#002466'
+            color3='#337AFF'
+            timeSpeed={0.35}
+            colorBalance={0.14}
+            warpStrength={4}
+            warpFrequency={4.7}
+            warpSpeed={1.2}
+            warpAmplitude={38}
+            blendAngle={-17}
+            blendSoftness={0.05}
+            rotationAmount={500}
+            noiseScale={2}
+            grainAmount={0.1}
+            grainScale={2}
+            grainAnimated={false}
+            contrast={1.5}
+            gamma={0.9}
+            saturation={1}
+            centerX={0.02}
+            centerY={0}
+            zoom={0.9}
+          />
+        </div>
         {openDialogue && (
           <DialogueBoxAdd handleSubmit={addCard} setOpen={setOpenDialouge} />
         )}
-        {initialColumns.map((el) => (
-          <BoardColumn
-            key={el.id}
-            title={el.title}
-            columnId={el.id}
-            cards={cards}
-            handleAddClick={handleAddClick}
-            handleDeleteClick={handleDeleteClick}
-          />
-        ))}
+        <div className='z-1 flex  px-6 h-full w-full justify-around items-center gap-10'>
+          {initialColumns.map((el) => (
+            <BoardColumn
+              key={el.id}
+              title={el.title}
+              columnId={el.id}
+              cards={cards}
+              handleAddClick={handleAddClick}
+              handleDeleteClick={handleDeleteClick}
+            />
+          ))}
+        </div>
       </div>
     </DragDropProvider>
   );
