@@ -28,7 +28,7 @@ const BoardColumn = ({
       ref={ref}
       className={`${
         isDropTarget ? ' border-3 border-blue-400  ' : 'border-3 border-transparent'
-      } w-sm shrink-0 h-2/3 bg-black rounded-2xl flex flex-col overflow-hidden transition`}
+      } w-sm shrink-0 h-2/3 bg-[#333333] rounded-2xl flex flex-col overflow-hidden transition`}
     >
       {/* Column Title */}
       <div className='m-3 text-gray-200 shrink-0  px-3'>{title}</div>

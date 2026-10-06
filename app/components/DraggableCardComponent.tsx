@@ -16,7 +16,7 @@ const DraggableCardComponent = ({ card,handleDeleteClick }: DraggableCardCompone
     <div
      
       ref={ref}
-      className='p-3 border border-transparent cursor-pointer hover:border-blue-300 bg-gray-800 rounded-xl text-base '
+      className='p-3 border border-transparent cursor-pointer hover:border-blue-300 bg-[#121212] rounded-xl text-base '
     >
       <div className='flex w-full justify-between items-center'>
         <span className='truncate'>{card.title}</span>

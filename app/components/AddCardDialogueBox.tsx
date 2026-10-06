@@ -28,6 +28,7 @@ const AddCardModal = ({ isOpen, onClose, onSubmit }: AddCardModalProps) => {
   const handleClose = () => {
     reset();
     onClose();
+
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -41,7 +42,7 @@ const AddCardModal = ({ isOpen, onClose, onSubmit }: AddCardModalProps) => {
   return (
     <Modal isOpen={isOpen} onClose={handleClose} title='Add a card' size='md'>
       <form onSubmit={handleSubmit} className='space-y-4'>
-        <div>
+        <div className='text-black'>
           <label
             htmlFor='card-title'
             className='block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1'
@@ -60,7 +61,7 @@ const AddCardModal = ({ isOpen, onClose, onSubmit }: AddCardModalProps) => {
           />
         </div>
 
-        <div>
+        <div className='text-black'>
           <label
             htmlFor='card-description'
             className='block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1'

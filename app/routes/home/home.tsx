@@ -4,7 +4,6 @@ import { initialCards, initialColumns } from '~/data/initialBoard';
 import BoardColumn from '~/components/BoardColumn';
 import type { Card } from '~/types';
 import { DragDropProvider } from '@dnd-kit/react';
-import Grainient from '~/components/BackgroundGradient';
 import DeleteModal from '~/components/ui/delete-modal';
 import AddCardModal from '~/components/AddCardDialogueBox';
 
@@ -105,33 +104,7 @@ export default function Home() {
       <div className='h-screen  flex relative  w-full overflow-x-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent hover:scrollbar-thumb-gray-500 px-6'>
         {/* List of cards, For now lets make three cards only */}
         {/* Outer cards */}
-        <div className='z-0 absolute inset-0'>
-          <Grainient
-            className='z-0 absolute inset-0'
-            color1='#99BDFF'
-            color2='#002466'
-            color3='#337AFF'
-            timeSpeed={0.35}
-            colorBalance={0.14}
-            warpStrength={4}
-            warpFrequency={4.7}
-            warpSpeed={1.2}
-            warpAmplitude={38}
-            blendAngle={-17}
-            blendSoftness={0.05}
-            rotationAmount={500}
-            noiseScale={2}
-            grainAmount={0.1}
-            grainScale={2}
-            grainAnimated={false}
-            contrast={1.5}
-            gamma={0.9}
-            saturation={1}
-            centerX={0.02}
-            centerY={0}
-            zoom={0.9}
-          />
-        </div>
+     
         <AddCardModal
           isOpen={openDialogue}
           onClose={() => setOpenDialouge(false)}
