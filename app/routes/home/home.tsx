@@ -1,11 +1,12 @@
 import type { Route } from './+types/home';
 import { useEffect, useState } from 'react';
 import { initialCards, initialColumns } from '~/data/initialBoard';
-import DialogueBoxAdd from '~/components/AddCardDialogueBox';
 import BoardColumn from '~/components/BoardColumn';
 import type { Card } from '~/types';
 import { DragDropProvider } from '@dnd-kit/react';
 import Grainient from '~/components/BackgroundGradient';
+import DeleteModal from '~/components/ui/delete-modal';
+import AddCardModal from '~/components/AddCardDialogueBox';
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -17,6 +18,7 @@ export function meta({}: Route.MetaArgs) {
 export default function Home() {
   const [openDialogue, setOpenDialouge] = useState(false);
   const [activeColumnId, setActiveColumnId] = useState<string | null>(null);
+  const [cardToDelete, setCardToDelete] = useState<string | null>(null);
   const [cards, setCards] = useState<Card[]>(() => {
     //     How it works
     // saved ? JSON.parse(saved) : initialCards returns the parsed cards if something is saved, and the seed cards on a first visit. The result is returned directly, so there's no leftover data variable.
@@ -61,12 +63,13 @@ export default function Home() {
 
   // First I'll need to get the active column Id from the coulmn card
   const handleDeleteClick = (cardId: string) => {
-    // So here I'm filtering the cards, I'm returning the previous cards that do not contain this card that I've just taken
+    setCardToDelete(cardId);
+  };
 
-    const confirmDelete = window.confirm('Are your sure you wanna do this?');
-    if (confirmDelete) {
-      setCards((prev) => [...prev.filter((card) => cardId !== card.id)]);
-    }
+  const confirmDelete = () => {
+    if (cardToDelete === null) return;
+    setCards((prev) => prev.filter((card) => card.id !== cardToDelete));
+    setCardToDelete(null);
   };
 
   return (
@@ -129,9 +132,16 @@ export default function Home() {
             zoom={0.9}
           />
         </div>
-        {openDialogue && (
-          <DialogueBoxAdd handleSubmit={addCard} setOpen={setOpenDialouge} />
-        )}
+        <AddCardModal
+          isOpen={openDialogue}
+          onClose={() => setOpenDialouge(false)}
+          onSubmit={addCard}
+        />
+        <DeleteModal
+          isOpen={cardToDelete !== null}
+          onClose={() => setCardToDelete(null)}
+          onConfirm={confirmDelete}
+        />
         <div className='z-1 flex  px-6 h-full w-full justify-around items-center gap-10'>
           {initialColumns.map((el) => (
             <BoardColumn
