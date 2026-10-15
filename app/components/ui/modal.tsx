@@ -188,10 +188,7 @@ const Modal: React.FC<ModalProps> = ({
         >
           {/* Backdrop */}
           <motion.div
-            className={cn(
-              "absolute inset-0 backdrop-blur-sm",
-              "bg-black/50 dark:bg-black/70"
-            )}
+            className="absolute inset-0 bg-black/55 backdrop-blur-md"
             onClick={onClose}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -201,9 +198,7 @@ const Modal: React.FC<ModalProps> = ({
           {/* Modal Content */}
           <motion.div
             className={cn(
-              "relative rounded-lg shadow-xl w-full mx-4 max-h-[90vh] overflow-auto",
-              "bg-white dark:bg-gray-900",
-              "border-0 dark:border dark:border-gray-700",
+              "glass-modal relative mx-4 max-h-[90vh] w-full overflow-auto rounded-2xl shadow-xl",
               sizeClasses[size]
             )}
             variants={modalVariants}
@@ -212,28 +207,11 @@ const Modal: React.FC<ModalProps> = ({
             exit="exit"
           >
             {title && (
-              <div
-                className={cn(
-                  "flex items-center justify-between p-4 border-b",
-                  "border-gray-200 dark:border-gray-700"
-                )}
-              >
-                <h3
-                  className={cn(
-                    "text-lg font-semibold",
-                    "text-gray-900 dark:text-white"
-                  )}
-                >
-                  {title}
-                </h3>
+              <div className="flex items-center justify-between border-b border-white/10 p-4">
+                <h3 className="text-lg font-semibold text-white">{title}</h3>
                 <button
                   onClick={onClose}
-                  className={cn(
-                    "p-1 rounded-md transition-colors",
-                    "text-gray-400 hover:text-gray-600",
-                    "dark:text-gray-400 dark:hover:text-gray-200",
-                    "hover:bg-gray-100 dark:hover:bg-gray-800"
-                  )}
+                  className="focus-ring rounded-md p-1 text-white/40 transition-colors hover:bg-white/10 hover:text-white"
                 >
                   <svg
                     className="w-5 h-5"

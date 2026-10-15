@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import Modal from './ui/modal';
 
-
 const base =
-  'cursor-pointer rounded-md px-4 py-2 text-sm font-medium transition-colors';
-const secondary = `${base} bg-gray-200 text-gray-900 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600`;
-const primary = `${base} bg-blue-600 text-white hover:bg-blue-700`;
+  'focus-ring cursor-pointer rounded-xl px-4 py-2 text-sm font-medium transition-colors';
+const secondary = `${base} border border-white/15 bg-white/5 text-white/80 hover:bg-white/10`;
+const primary = `${base} bg-primary text-white hover:bg-primary-bright`;
 const field =
-  'w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-100';
+  'w-full rounded-xl border border-white/10 bg-white/5 px-3 py-2.5 text-sm text-white placeholder:text-white/30 outline-none transition-colors focus:border-[#67fafd]/50 focus:ring-2 focus:ring-[#67fafd]/25';
 
 type AddCardModalProps = {
   isOpen: boolean;
@@ -19,7 +18,6 @@ const AddCardModal = ({ isOpen, onClose, onSubmit }: AddCardModalProps) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
 
-  // This modal stays mounted while closed, so its state is NOT reset for free.
   const reset = () => {
     setTitle('');
     setDescription('');
@@ -28,12 +26,10 @@ const AddCardModal = ({ isOpen, onClose, onSubmit }: AddCardModalProps) => {
   const handleClose = () => {
     reset();
     onClose();
-
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // `required` lets a spaces-only title through, so check the trimmed value
     if (title.trim() === '') return;
     onSubmit(title, description);
     handleClose();
@@ -42,12 +38,12 @@ const AddCardModal = ({ isOpen, onClose, onSubmit }: AddCardModalProps) => {
   return (
     <Modal isOpen={isOpen} onClose={handleClose} title='Add a card' size='md'>
       <form onSubmit={handleSubmit} className='space-y-4'>
-        <div className='text-black'>
+        <div>
           <label
             htmlFor='card-title'
-            className='block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1'
+            className='mb-1.5 block text-[11px] font-medium uppercase tracking-[0.16em] text-white/45'
           >
-            Title *
+            Title
           </label>
           <input
             type='text'
@@ -61,10 +57,10 @@ const AddCardModal = ({ isOpen, onClose, onSubmit }: AddCardModalProps) => {
           />
         </div>
 
-        <div className='text-black'>
+        <div>
           <label
             htmlFor='card-description'
-            className='block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1'
+            className='mb-1.5 block text-[11px] font-medium uppercase tracking-[0.16em] text-white/45'
           >
             Description
           </label>
@@ -78,7 +74,7 @@ const AddCardModal = ({ isOpen, onClose, onSubmit }: AddCardModalProps) => {
           />
         </div>
 
-        <div className='flex justify-end space-x-3 pt-4 border-t border-gray-200 dark:border-gray-700'>
+        <div className='flex justify-end gap-3 border-t border-white/10 pt-4'>
           <button type='button' onClick={handleClose} className={secondary}>
             Cancel
           </button>
